@@ -12,8 +12,14 @@ class MyStack:
         else:
             raise OverflowError("Stack is full, cannot push new element.")
 
+    def pop(self):
+        if self.is_empty():
+            raise IndexError('Stack underflow: cannot pop from an empty stack')
+        self.__stack.pop()
     def top(self):
-        return self.__stack[0]
+        if self.is_empty():
+            return 'Stack is empty'
+        return self.__stack[-1]
 
 class MyQueue:
     def __init__(self, capacity):
