@@ -27,7 +27,7 @@ class Person(ABC):
 
 class Student(Person):
     def __init__(self, name, yob, grade: str):
-        super().__init__(name, yob)
+        super().__init__(name= name, yob= yob)
         self.__grade = grade
 
     def describe(self):
@@ -40,25 +40,25 @@ class Student(Person):
 class Teacher(Person):
     def __init__(self, name, yob, subject: str):
         super().__init__(name, yob)
-        self.subject = subject
+        self.__subject = subject
 
     def describe(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.subject}')
+        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__subject}')
 
     def __call__(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.subject}')
+        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__subject}')
 
 
 class Doctor(Person):
     def __init__(self, name, yob, specialist: str):
         super().__init__(name, yob)
-        self.specialist = specialist
+        self.__specialist = specialist
 
     def describe(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.specialist}')
+        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__specialist}')
 
     def __call__(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.specialist}')
+        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__specialist}')
 
 
 class Ward:
@@ -76,9 +76,29 @@ class Ward:
             p.describe()
 
     def count_doctor(self):
-        count = sum(1 for p in self.__list_people if isinstance(p, Doctor))
-        print('Number of doctors:', count)
-        return count
+        counter = 0
+        for p in self.__list_people:
+            if isinstance(p,Doctor): #if type(person) == Doctor
+                counter +=1
+        return counter
+
+    def sort_yob(self):
+        return self.__list_people.sort(key=lambda x: x.get_yob())
+
+    def comput_average(self):
+        sum_age = 0
+        sum_age_teacher = 0
+        count_teacher = 0
+        for p in self.__list_people:
+            if isinstance(p, Teacher):
+                count_teacher +=1
+                sum_age_teacher +=p.get_yob()
+            sum_age += p.get_yob()
+        ave = sum_age/len(self.__list_people)
+        ave_teacher = sum_age_teacher / count_teacher
+        print(f'ave: {ave}, ave_teacher: {ave_teacher}')
+        return ave, ave_teacher
+
 
 
 # q5
@@ -93,8 +113,7 @@ assert teacher1.get_yob() == 1991
 teacher1.describe ()
 
 #q7
-doctor1 = Doctor("doctorZ2023", 1981,
-                " Endocrinologists ")
+doctor1 = Doctor("doctorZ2023", 1981," Endocrinologists ")
 assert doctor1.get_yob() == 1981
 doctor1.describe()
 
@@ -106,7 +125,7 @@ doctor1 = Doctor(" doctorA ",1945," Endocrinologists ")
 print('done')
 ward1 = Ward(name="Ward1")
 print(ward1.describe())
-assert ward1.count_doctor() == 1
+assert ward1.count_doctor() == 0
 doctor2 = Doctor("doctorB ",1975," Cardiologists ")
 ward1.add_person(student1)
 ward1.add_person(teacher1)
@@ -115,3 +134,4 @@ ward1.add_person(doctor1)
 ward1.add_person(doctor2)
 ward1.count_doctor()
 print(ward1.describe())
+ward1.comput_average()
