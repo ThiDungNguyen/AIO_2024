@@ -88,8 +88,7 @@ def levenshtein_distance(token1, token2):
                 D[i][j - 1] + 1,  # Insertion
                 D[i - 1][j - 1] + sub_cost  # Substitution
             )
-    print(D)
-    # return distance
+
 
 
 max_kernel(num_list=[3, 4, 5, 1, -44, 5, 10, 12, 33, 1], k=3)
@@ -99,7 +98,7 @@ download_file(
 count_word('file_for_module1_hw2')
 levenshtein_distance('yo', 'you')
 
-phan 2 trac nghiem
+#phan 2 trac nghiem
 assert max_kernel([3, 4, 5, 1, -44], 3) == [5, 5, 5]
 num_list = [3, 4, 5, 1, -44, 5, 10, 12, 33, 1]
 k = 3

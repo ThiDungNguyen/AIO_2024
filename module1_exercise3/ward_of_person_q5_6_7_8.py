@@ -2,14 +2,14 @@ from abc import ABC, abstractmethod
 
 
 class Person(ABC):
-    def __init__(self, name:str, yob:int):
+    def __init__(self, name: str, yob: int):
         self.__name = name
         self.__yob = yob
 
     def get_yob(self):
         return self.__yob
 
-    def set_yob(self,yob):
+    def set_yob(self, yob):
         self.__yob = yob
 
     # __: private, chỉ dùng được ở trong cùng 1 class, muốn sử dụng thay đổi biến private thì cần dùng các hàm đặc biệt như: get_name, set_name
@@ -27,14 +27,12 @@ class Person(ABC):
 
 class Student(Person):
     def __init__(self, name, yob, grade: str):
-        super().__init__(name= name, yob= yob)
+        super().__init__(name=name, yob=yob)
         self.__grade = grade
 
     def describe(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__grade}')
-
-    def __call__(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__grade}')
+        print(f'name: {self.get_name()}, yob: {
+              self.get_yob()}, grade: {self.__grade}')
 
 
 class Teacher(Person):
@@ -43,10 +41,8 @@ class Teacher(Person):
         self.__subject = subject
 
     def describe(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__subject}')
-
-    def __call__(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__subject}')
+        print(f'name: {self.get_name()}, yob: {
+              self.get_yob()}, grade: {self.__subject}')
 
 
 class Doctor(Person):
@@ -55,15 +51,13 @@ class Doctor(Person):
         self.__specialist = specialist
 
     def describe(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__specialist}')
-
-    def __call__(self):
-        print(f'name: {self.get_name()}, yob: {self.get_yob()}, grade: {self.__specialist}')
+        print(f'name: {self.get_name()}, yob: {
+              self.get_yob()}, grade: {self.__specialist}')
 
 
 class Ward:
     def __init__(self, name: str):
-        #super().__init__(name)
+        # super().__init__(name)
         self.__name = name
         self.__list_people = list()
 
@@ -78,8 +72,8 @@ class Ward:
     def count_doctor(self):
         counter = 0
         for p in self.__list_people:
-            if isinstance(p,Doctor): #if type(person) == Doctor
-                counter +=1
+            if isinstance(p, Doctor):  # if type(person) == Doctor
+                counter += 1
         return counter
 
     def sort_yob(self):
@@ -91,8 +85,8 @@ class Ward:
         count_teacher = 0
         for p in self.__list_people:
             if isinstance(p, Teacher):
-                count_teacher +=1
-                sum_age_teacher +=p.get_yob()
+                count_teacher += 1
+                sum_age_teacher += p.get_yob()
             sum_age += p.get_yob()
         ave = sum_age/len(self.__list_people)
         ave_teacher = sum_age_teacher / count_teacher
@@ -100,33 +94,31 @@ class Ward:
         return ave, ave_teacher
 
 
-
 # q5
 student1 = Student("studentZ2023", 2011, "6")
 assert student1.get_yob() == 2011
 student1.describe()
-student1()
 
 # q6
-teacher1 = Teacher ("teacherZ2023", 1991 , " History ")
+teacher1 = Teacher("teacherZ2023", 1991, " History ")
 assert teacher1.get_yob() == 1991
-teacher1.describe ()
+teacher1.describe()
 
-#q7
-doctor1 = Doctor("doctorZ2023", 1981," Endocrinologists ")
+# q7
+doctor1 = Doctor("doctorZ2023", 1981, " Endocrinologists ")
 assert doctor1.get_yob() == 1981
 doctor1.describe()
 
 # q8
-student1 = Student(" studentA ",2010,"7")
-teacher1 = Teacher(" teacherA ",2009, " Math ")
-teacher2 = Teacher(" teacherB ",1978," History ")
-doctor1 = Doctor(" doctorA ",1945," Endocrinologists ")
+student1 = Student(" studentA ", 2010, "7")
+teacher1 = Teacher(" teacherA ", 2009, " Math ")
+teacher2 = Teacher(" teacherB ", 1978, " History ")
+doctor1 = Doctor(" doctorA ", 1945, " Endocrinologists ")
 print('done')
 ward1 = Ward(name="Ward1")
 print(ward1.describe())
 assert ward1.count_doctor() == 0
-doctor2 = Doctor("doctorB ",1975," Cardiologists ")
+doctor2 = Doctor("doctorB ", 1975, " Cardiologists ")
 ward1.add_person(student1)
 ward1.add_person(teacher1)
 ward1.add_person(teacher2)
