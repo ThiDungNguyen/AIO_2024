@@ -1,4 +1,4 @@
-def T_or_N_decision(x):
+def t_or_n_decision(x):
     'for q15'
     # Your code here
     # Neu x >0 tra ve ’T ’, nguoc lai tra ve ’N’
@@ -9,7 +9,7 @@ def T_or_N_decision(x):
 
 
 def am_duong_list(data):
-    res = [T_or_N_decision(x) for x in data]
+    res = [t_or_n_decision(x) for x in data]
     return res
 
 

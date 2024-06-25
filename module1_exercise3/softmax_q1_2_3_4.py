@@ -28,26 +28,26 @@ class SoftmaxStable(nn.Module):
 data = torch.Tensor([1, 2, 3])
 softmax_function = nn.Softmax(dim=0)
 output = softmax_function(data)
-assert round(output[0].item(), 2) == 0.09
+assert round(output[0].item(), 2)*100 == 9
 print(output)
 
 # q2:
 data = torch.Tensor([5, 2, 4])
 my_softmax = MySoftmax()
 output1 = my_softmax(data)
-assert round(output1[-1].item(), 2) == 0.26
+assert round(output1[-1].item(), 2)*100 == 26
 print('output1: ', output1)
 
 # q3:
 data = torch.Tensor([1, 2, 300000000])
 my_softmax = MySoftmax()
 output2 = my_softmax(data)
-assert round(output2[0]. item(), 2) == 0.0
+assert round(output2[0]. item(), 2) == 0
 print('output2: ', output2)
 
 # q4
 data = torch.Tensor([1, 2, 3])
 softmax_stable = SoftmaxStable()
 output = softmax_stable(data)
-assert round(output[-1]. item(), 2) == 0.67
+assert round(output[-1]. item(), 2)*100 == 67
 print(output)
