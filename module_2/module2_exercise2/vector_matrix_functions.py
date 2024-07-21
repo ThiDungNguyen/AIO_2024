@@ -1,8 +1,9 @@
+
+import cv2
 import numpy as np
 
 
 def compute_vector_length(vector):
-    # *********** Your code here ***********
     print('np.dot(vector,vector', np.dot(vector, vector))
     len_of_vector_w1 = np.sqrt(np.dot(vector, vector))
     # len_of_vector_w2 = np.linalg.norm(vector)
@@ -10,42 +11,59 @@ def compute_vector_length(vector):
 
 
 def compute_dot_product(vector1, vector2):
-    # *********** Your code here ***********
     result = np.dot(vector1, vector2)
     return result
 
 
 def matrix_multi_vector(matrix, vector):
-    # *********** Your code here ***********
     result = np.dot(matrix, vector)
     return result
 
 
 def matrix_multi_matrix(matrix1, matrix2):
-    # *********** Your code here ***********
     result = np.dot(matrix1, matrix2)
     return result
 
 
 def inverse_matrix(matrix):
-    # *********** Your code here ***********
     result = np.linalg.inv(matrix)
     return result
 
 
 def compute_eigenvalues_eigenvectors(matrix):
-    # *********** Your code here ***********
     eigenvalues, eigenvectors = np.linalg.eig(matrix)
     return eigenvalues, eigenvectors
 
 
 def compute_cosine(v1, v2):
-    # *********** Your code here ***********
     dot_product = np.dot(v1, v2)
     norm_v1 = np.linalg.norm(v1)
     norm_v2 = np.linalg.norm(v2)
     cos_sim = dot_product / (norm_v1 * norm_v2)
     return cos_sim
+
+
+def compute_difference(bg_img, input_img):
+    difference_single_channel = input_img - bg_img
+    return difference_single_channel
+
+
+def compute_binary_mask(difference_single_channel):
+    difference_binary = np.where(difference_single_channel == 0, 0, 255)
+    return difference_binary
+
+
+def replace_background(bg1_image, bg2_image, ob_image):
+    difference_single_channel = compute_difference(
+        bg1_image,
+        ob_image
+    )
+
+    binary_mask = compute_binary_mask(difference_single_channel)
+
+    output = np. where(binary_mask == 255, ob_image, bg2_image)
+
+    return output
 
 
 # Q1
@@ -118,3 +136,27 @@ x = np. array([1, 2, 3, 4])
 y = np. array([1, 0, 3, 0])
 result = compute_cosine(x, y)
 print(round(result, 3))
+
+bg1_image = cv2.imread('./pic_data/GreenBackground.png', 1)
+bg1_image = cv2.resize(bg1_image, (678, 381))
+bg1_image = bg1_image.astype(np.float32)
+
+ob_image = cv2.imread('./pic_data/Object.png', 1)
+ob_image = cv2.resize(ob_image, (678, 381))
+ob_image = ob_image.astype(np.float32)
+
+bg2_image = cv2.imread('./pic_data/NewBackground.jpg', 1)
+bg2_image = cv2.resize(bg2_image, (678, 381))
+bg2_image = bg2_image.astype(np.float64)
+
+difference_single_channel = compute_difference(bg1_image, ob_image)
+difference_single_channel_save = difference_single_channel.astype(np.uint8)
+cv2.imwrite('./pic_data/difference_image.png', difference_single_channel_save)
+
+binary_mask = compute_binary_mask(difference_single_channel)
+binary_mask_save = binary_mask.astype(np.uint8)
+cv2.imwrite('./pic_data/binary_mask.png', binary_mask_save)
+
+new_image = replace_background(bg1_image, bg2_image, ob_image)
+new_image_save = new_image.astype(np.uint8)
+cv2.imwrite('./pic_data/new_image.png', new_image_save)
