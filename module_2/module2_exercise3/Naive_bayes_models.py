@@ -32,15 +32,15 @@ def prediction_play_tennis(x, list_x_name, prior_probability, conditional_probab
     print("x4 = ", x4)
 
     p0 = prior_probability[0] \
-    *conditional_probability[0][x1][0]\
-    *conditional_probability[0][x2][0]\
-    *conditional_probability[0][x3][0]\
-    *conditional_probability[0][x4][0]
+        * conditional_probability[0][x1][0]\
+        * conditional_probability[0][x2][0]\
+        * conditional_probability[0][x3][0]\
+        * conditional_probability[0][x4][0]
     p1 = prior_probability[1] \
-    *conditional_probability[1][x1][1]\
-    *conditional_probability[1][x2][1]\
-    *conditional_probability[1][x3][1]\
-    *conditional_probability[1][x3][1]
+        * conditional_probability[1][x1][1]\
+        * conditional_probability[1][x2][1]\
+        * conditional_probability[1][x3][1]\
+        * conditional_probability[1][x3][1]
 
     # your code here ***********************
 

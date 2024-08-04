@@ -19,13 +19,15 @@ def create_train_data():
 def compute_prior_probablity(train_data):
     y_unique = ['no', 'yes']
     prior_probability = np.zeros(len(y_unique))
-    prior_probability[0] = len(train_data[train_data[:, 4] == 'no'])/len(train_data[:, 4])
-    prior_probability[1] = len(train_data[train_data[:, 4] == 'yes'])/len(train_data[:, 4])
-    #print('prior_probability',prior_probability)
+    prior_probability[0] = len(
+        train_data[train_data[:, 4] == 'no'])/len(train_data[:, 4])
+    prior_probability[1] = len(
+        train_data[train_data[:, 4] == 'yes'])/len(train_data[:, 4])
+    # print('prior_probability',prior_probability)
     return prior_probability
 
 
-def compute_conditional_probability(train_data): # P(X1|C1)
+def compute_conditional_probability(train_data):  # P(X1|C1)
     conditional_probability = []
     list_x_name = []
     for i in range(0, train_data.shape[1] - 1):
@@ -34,9 +36,12 @@ def compute_conditional_probability(train_data): # P(X1|C1)
         list_x_name.append(column_unique)
         column_conditional_probability = []
         for item in column_unique:
-            p_sunny_given_yes = len(train_data[((train_data[:, i] == item) & (train_data[:, 4] == 'yes'))])/len(train_data[train_data[:, 4] == 'yes'])
-            p_sunny_given_no = len(train_data[((train_data[:, i] == item) & (train_data[:, 4] == 'no'))])/len(train_data[train_data[:, 4] == 'no'])
-            column_conditional_probability.append([p_sunny_given_no, p_sunny_given_yes])
+            p_sunny_given_yes = len(train_data[((train_data[:, i] == item) & (
+                train_data[:, 4] == 'yes'))])/len(train_data[train_data[:, 4] == 'yes'])
+            p_sunny_given_no = len(train_data[((train_data[:, i] == item) & (
+                train_data[:, 4] == 'no'))])/len(train_data[train_data[:, 4] == 'no'])
+            column_conditional_probability.append(
+                [p_sunny_given_no, p_sunny_given_yes])
 
         conditional_probability.append(column_conditional_probability)
 
